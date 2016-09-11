@@ -7,12 +7,12 @@ A minimal zsh theme.
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
 ```
-zgen load subnixr/minimal minimal
+zgen load subnixr/minimal
 ```
 
 [Antigen](https://github.com/zsh-users/antigen):
 ```
-antigen theme subnixr/minimal minimal
+antigen theme subnixr/minimal
 ```
 
 Otherwise, you can always clone the repo and source `minimal.zsh`.
@@ -70,6 +70,7 @@ If your buffer is empty, pressing enter will print some useful informations:
 - Number of visible files, number of total files.
 - Number of background jobs (if any).
 - Colored `ls` output, wrapped in `$PAGER` if output is longer than your view.
+- Colored, brief, `git status` output, only if in a git repo
 
 #  I HATE UTF-8!
 No problem:
