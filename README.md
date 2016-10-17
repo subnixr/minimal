@@ -2,7 +2,7 @@
 A minimal zsh theme.
 
 # Screenshot
-![alt tag](http://i.imgur.com/gs1e2rc.png)
+![alt tag](http://i.imgur.com/IdVHRIU.png)
 
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
