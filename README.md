@@ -80,3 +80,9 @@ MINIMAL_INSERT_CHAR=">"
 MINIMAL_NORMAL_CHAR="-"
 source /path/to/minimal.zsh
 ```
+
+# MAN I WANT MOAR CUSTOMIZATION!
+Take a look at the code, is full of functions: from building the prompt to
+ listing files with magic enter.
+
+If you don't like it, override it (just do it after `source minimal.zsh`).

@@ -15,6 +15,17 @@ setopt prompt_subst
 _grey="[38;5;244m"
 _greyp="%{$_grey%}"
 
+# os detection, linux as default
+function minimal_ls {
+    ls -C --color="always"
+}
+
+if [[ "$(uname)" = "Darwin" ]]; then
+    function minimal_ls {
+        ls -C -G
+    }
+fi
+
 function minimal_git {
   local statc="%{[0;32m%}" # assumes is clean
   local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
@@ -106,7 +117,7 @@ function minimal_magic_enter {
     printf "$iline\n"
 
     # listing
-    local output="$(ls -C --color="always")"
+    local output="$(minimal_ls)"
 
     # git status
     local git_status="$(git -c color.status=always status -s 2> /dev/null)"
