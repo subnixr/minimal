@@ -17,7 +17,7 @@ _greyp="%{$_grey%}"
 
 # os detection, linux as default
 function minimal_ls {
-    ls -C --color="always"
+    ls -C --color="always" -w $COLUMNS
 }
 
 if [[ "$(uname)" = "Darwin" ]]; then
