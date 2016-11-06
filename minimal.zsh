@@ -12,7 +12,7 @@ MINIMAL_NORMAL_CHAR="${MINIMAL_NORMAL_CHAR:-·}"
 autoload -U colors && colors
 setopt prompt_subst
 
-_grey="[38;5;244m"
+_grey="\e[38;5;244m"
 _greyp="%{$_grey%}"
 
 # os detection, linux as default
@@ -27,17 +27,17 @@ if [[ "$(uname)" = "Darwin" ]]; then
 fi
 
 function minimal_git {
-  local statc="%{[0;32m%}" # assumes is clean
+  local statc="%{\e[0;32m%}" # assumes is clean
   local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
   if [ -n "$bname" ]; then
-    [ -n "$(git status --porcelain 2> /dev/null)" ] && statc="%{[0;31m%}"
-    echo " $statc$bname%{[0m%}"
+    [ -n "$(git status --porcelain 2> /dev/null)" ] && statc="%{\e[0;31m%}"
+    echo " $statc$bname%{\e[0m%}"
   fi
 }
 
 function minimal_path {
-  local w="%{[0m%}"
+  local w="%{\e[0m%}"
   local cwd="%2~"
   local pi=""
   cwd="${(%)cwd}"
@@ -57,7 +57,7 @@ function minimal_lprompt {
     _venv="$(basename $VIRTUAL_ENV)"
     _venv="${_venv%%.*} "
   fi
-  local user_status="%{[%(1j.4.0);3%(0?.2.1)m%}%(!.#.$MINIMAL_USER_CHAR)"
+  local user_status="%{\e[%(1j.4.0);3%(0?.2.1)m%}%(!.#.$MINIMAL_USER_CHAR)"
   local viins="$MINIMAL_INSERT_CHAR"
   [ "$KEYMAP" = 'vicmd' ] && viins="$MINIMAL_NORMAL_CHAR"
 
@@ -100,8 +100,12 @@ fi
 # magic enter: if no command is written,
 # hitting enter will display some info
 function minimal_magic_enter {
+  local last_err="$?"
+
   if [ -z "$BUFFER" ]; then
-    local w="[0m"
+    local w="\e[0m"
+    local rn="\e[0;31m"
+    local rb="\e[1;31m"
 
     local user_host_pwd="$_grey%n$w@$_grey%m$w:$_grey%~$w"
     user_host_pwd="${${(%)user_host_pwd}//\//$w/$_grey}"
@@ -113,6 +117,10 @@ function minimal_magic_enter {
 
     local iline="[$user_host_pwd] [$_grey$v_files$w ($_grey$h_files$w)]"
     [ "$job_n" -gt 0 ] && iline="$iline [$_grey$job_n$w&]"
+
+    if [ "$last_err" != "0" ]; then
+        iline="$iline \e[1;31m[\e[0;31m$last_err\e[1;31m]$w"
+    fi
 
     printf "$iline\n"
 
