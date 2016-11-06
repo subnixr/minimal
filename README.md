@@ -60,7 +60,7 @@ On the right:
 # Magic Enter
 You may miss some info from your prompt: magic enter to the rescue!
 ```
-λ › [subnixr@lambda-arch:~] [14 (72)] [1&]                                    ~
+λ › [subnixr@lambda-arch:~] [14 (72)] [1&] [1]                                ~
 Desktop    Downloads  GBA    pgadmin.log  Pictures  Templates  VirtualBox VMs
 Documents  Dropbox    Music  Phone        Public    Videos     Workspace
 ```
@@ -69,6 +69,7 @@ If your buffer is empty, pressing enter will print some useful informations:
 - Username, hostname and full `pwd`.
 - Number of visible files, number of total files.
 - Number of background jobs (if any).
+- Exit code of last command (if exited with non-zero)
 - Colored `ls` output, wrapped in `$PAGER` if output is longer than your view.
 - Colored, brief, `git status` output, only if in a git repo
 
