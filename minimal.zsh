@@ -20,7 +20,7 @@ function minimal_ls {
     ls -C --color="always" -w $COLUMNS
 }
 
-if [[ "$(uname)" = "Darwin" ]]; then
+if [[ "$(uname)" = "Darwin" ]] && ! ls --version &> /dev/null; then
     function minimal_ls {
         ls -C -G
     }
@@ -111,7 +111,7 @@ function minimal_magic_enter {
     user_host_pwd="${${(%)user_host_pwd}//\//$w/$_grey}"
 
     local v_files="$(ls -1 | wc -l)"
-    local h_files="$(ls -1a | grep '^\.[^\.]' | wc -l)"
+    local h_files="$(ls -1A | wc -l)"
 
     local job_n="$(jobs | wc -l)"
 
