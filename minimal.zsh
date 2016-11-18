@@ -4,6 +4,7 @@ MINIMAL_RPROMPT="${MINIMAL_RPROMPT:-yes}"
 MINIMAL_MAGIC_ENTER="${MINIMAL_MAGIC_ENTER:-yes}"
 
 # customization parameters
+MINIMAL_OK_COLOR="${MINIMAL_OK_COLOR:-2}"
 MINIMAL_USER_CHAR="${MINIMAL_USER_CHAR:-λ}"
 MINIMAL_INSERT_CHAR="${MINIMAL_INSERT_CHAR:-›}"
 MINIMAL_NORMAL_CHAR="${MINIMAL_NORMAL_CHAR:-·}"
@@ -27,7 +28,7 @@ if [[ "$(uname)" = "Darwin" ]] && ! ls --version &> /dev/null; then
 fi
 
 function minimal_git {
-  local statc="%{\e[0;32m%}" # assumes is clean
+  local statc="%{\e[0;3${MINIMAL_OK_COLOR}m%}" # assumes is clean
   local bname="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
   if [ -n "$bname" ]; then
@@ -57,7 +58,8 @@ function minimal_lprompt {
     _venv="$(basename $VIRTUAL_ENV)"
     _venv="${_venv%%.*} "
   fi
-  local user_status="%{\e[%(1j.4.0);3%(0?.2.1)m%}%(!.#.$MINIMAL_USER_CHAR)"
+  local user_status="%{\e[%(1j.4.0);3%(0?.$MINIMAL_OK_COLOR.1)m%}\
+%(!.#.$MINIMAL_USER_CHAR)"
   local viins="$MINIMAL_INSERT_CHAR"
   [ "$KEYMAP" = 'vicmd' ] && viins="$MINIMAL_NORMAL_CHAR"
 
