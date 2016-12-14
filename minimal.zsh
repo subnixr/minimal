@@ -8,6 +8,8 @@ MINIMAL_OK_COLOR="${MINIMAL_OK_COLOR:-2}"
 MINIMAL_USER_CHAR="${MINIMAL_USER_CHAR:-λ}"
 MINIMAL_INSERT_CHAR="${MINIMAL_INSERT_CHAR:-›}"
 MINIMAL_NORMAL_CHAR="${MINIMAL_NORMAL_CHAR:-·}"
+MINIMAL_PWD_LEN="${MINIMAL_PWD_LEN:-2}"
+MINIMAL_PWD_CHAR_LEN="${MINIMAL_PWD_CHAR_LEN:-10}"
 
 # necessary
 autoload -U colors && colors
@@ -39,14 +41,17 @@ function minimal_git {
 
 function minimal_path {
   local w="%{\e[0m%}"
-  local cwd="%2~"
+  local cwd="%${MINIMAL_PWD_LEN}~"
   local pi=""
+  local len="$MINIMAL_PWD_CHAR_LEN"
+  [ "$len" -lt 4 ] && len=4
+  local hlen=$((len / 2 - 1))
   cwd="${(%)cwd}"
   cwd=("${(@s:/:)cwd}")
 
   for i in {1..${#cwd}}; do
     pi="$cwd[$i]"
-    [ "${#pi}" -gt 10 ] && cwd[$i]="${pi:0:4}$w..$_greyp${pi: -4}"
+    [ "${#pi}" -gt "$len" ] && cwd[$i]="${pi:0:$hlen}$w..$_greyp${pi: -$hlen}"
   done
 
   echo "$_greyp${(j:/:)cwd//\//$w/$_greyp}$w"

@@ -26,6 +26,12 @@ This theme can be customized before sourcing through variables:
 - `MINIMAL_USER_CHAR`: overrides normal user character (default: `λ`)
 - `MINIMAL_INSERT_CHAR`: overrides insert mode character (default: `›`)
 - `MINIMAL_NORMAL_CHAR`: overrrides normal mode character (default: `·`)
+- `MINIMAL_OK_COLOR`: overrides color for succefull last command and git clean 
+(default: `2`)
+- `MINIMAL_PWD_LEN`: overrides number of working directory segments shown 
+(default: `2`)
+- `MINIMAL_PWD_CHAR_LEN`: overrides maximun length of pwd's segments before it 
+is ellipsed (default: `10`, minimum: `4`)
 
 To disable a feature, just set it to something other than `yes` before  sourcing.
 
@@ -46,16 +52,19 @@ On the left:
 shown if not in use.
 - `λ` is shown if you are a normal user. When root, a classic `#` will be shown
 instead.
-- `λ` will be green if the last command exited successfully, otherwise will be 
-red.
+- `λ` will be `MINIMAL_OK_COLOR` if the last command exited successfully, 
+otherwise will be red.
 - `λ` will be underlined if you have jobs in background.
 - `›` will be show if you are in insert (default) mode. If using vimode, `·` 
 is shown when in normal mode.
 
 On the right:
 
-- The last two segments of `pwd` are shown. If a segment is longer than 10 chars, it will be ellipsed. If you are near the root (eg: `/usr/bin`) the first slash will be shown.
-- Git's current branch. It will be shown only if inside a git repo. It will be green if clean, otherwise red.
+- The last `MINIMAL_PWD_LEN` segments of `pwd` are shown. If a segment is 
+longer than `MINIMAL_PWD_CHAR_LEN` chars, it will be ellipsed. 
+If you are near the root (eg: `/usr/bin`) the first slash will be shown.
+- Git's current branch. It will be shown only if inside a git repo. It will be 
+`MINIMAL_OK_COLOR` if clean, otherwise red.
 
 # Magic Enter
 You may miss some info from your prompt: magic enter to the rescue!
@@ -82,8 +91,3 @@ MINIMAL_NORMAL_CHAR="-"
 source /path/to/minimal.zsh
 ```
 
-# MAN I WANT MOAR CUSTOMIZATION!
-Take a look at the code, is full of functions: from building the prompt to
- listing files with magic enter.
-
-If you don't like it, override it (just do it after `source minimal.zsh`).
