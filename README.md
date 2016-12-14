@@ -26,12 +26,12 @@ This theme can be customized before sourcing through variables:
 - `MINIMAL_USER_CHAR`: overrides normal user character (default: `λ`)
 - `MINIMAL_INSERT_CHAR`: overrides insert mode character (default: `›`)
 - `MINIMAL_NORMAL_CHAR`: overrrides normal mode character (default: `·`)
-- `MINIMAL_OK_COLOR`: overrides color for succefull last command and git clean 
+- `MINIMAL_OK_COLOR`: overrides color for successful last command and git clean 
 (default: `2`)
 - `MINIMAL_PWD_LEN`: overrides number of working directory segments shown 
 (default: `2`)
-- `MINIMAL_PWD_CHAR_LEN`: overrides maximun length of pwd's segments before it 
-is ellipsed (default: `10`, minimum: `4`)
+- `MINIMAL_PWD_CHAR_LEN`: overrides maximum length of pwd's segments before it 
+is elided (default: `10`, minimum: `4`)
 
 To disable a feature, just set it to something other than `yes` before  sourcing.
 
@@ -61,7 +61,7 @@ is shown when in normal mode.
 On the right:
 
 - The last `MINIMAL_PWD_LEN` segments of `pwd` are shown. If a segment is 
-longer than `MINIMAL_PWD_CHAR_LEN` chars, it will be ellipsed. 
+longer than `MINIMAL_PWD_CHAR_LEN` chars, it will be elided. 
 If you are near the root (eg: `/usr/bin`) the first slash will be shown.
 - Git's current branch. It will be shown only if inside a git repo. It will be 
 `MINIMAL_OK_COLOR` if clean, otherwise red.
