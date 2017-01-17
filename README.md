@@ -1,8 +1,9 @@
 # MINIMAL
 A minimal zsh theme.
 
-# Screenshot
-![alt tag](http://i.imgur.com/IdVHRIU.png)
+# Screencast
+
+[![screencast](https://asciinema.org/a/6awagm3y3ylut6vo6fauu3j4c.png)](https://asciinema.org/a/6awagm3y3ylut6vo6fauu3j4c)
 
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
@@ -43,9 +44,9 @@ the root (eg: `/usr/bin`) the first slash will be shown.
 # Magic Enter
 You may miss some info from your prompt: magic enter to the rescue!
 ```
-λ › [subnixr@lambda-arch:~] [14 (72)] [1&] [1]                                ~
-Desktop    Downloads  GBA    pgadmin.log  Pictures  Templates  VirtualBox VMs
-Documents  Dropbox    Music  Phone        Public    Videos     Workspace
+λ › [subnixr@lambda-arch:~] [12 (90)] [1&] [1]                                 ~
+  | Desktop    Downloads  GBA   Music  Pictures  Videos
+  | Documents  Dropbox    MAME  Phone  Public    Workspace
 ```
 If your buffer is empty, pressing enter will print some useful informations:
 
@@ -86,6 +87,8 @@ Changes to these variables take immediate effect.
 - `MINIMAL_PWD_LEN`: number of working directory segments shown (default: `2`).
 - `MINIMAL_PWD_CHAR_LEN`: maximum length of pwd's segments before it is elided
 (default: `10`, minimum: `4`).
+- `MINIMAL_MAGIC_ENTER_MARGIN`: a string printed before each line of 
+`minimal_magic_output` only if is *not* wrapped into `$PAGER` (default: `  | `)
 
 ## Functions
 These are used by *minimal* to display useful informations.

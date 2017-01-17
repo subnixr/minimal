@@ -10,6 +10,7 @@ MINIMAL_INSERT_CHAR="${MINIMAL_INSERT_CHAR:-›}"
 MINIMAL_NORMAL_CHAR="${MINIMAL_NORMAL_CHAR:-·}"
 MINIMAL_PWD_LEN="${MINIMAL_PWD_LEN:-2}"
 MINIMAL_PWD_CHAR_LEN="${MINIMAL_PWD_CHAR_LEN:-10}"
+MINIMAL_MAGIC_ENTER_MARGIN="${MINIMAL_MAGIC_ENTER_MARGIN:-  | }"
 
 # check if function exists
 function _isfn {
@@ -130,7 +131,7 @@ function minimal_wrap_output {
         if [ "$output_len" -gt "$((LINES - 2))" -a -n "$PAGER" ]; then
             printf "$output\n" | "$PAGER" -R
         else
-            printf "$output\n"
+            printf "$output\n" | sed "s/^/$MINIMAL_MAGIC_ENTER_MARGIN/"
         fi
     fi
 }
