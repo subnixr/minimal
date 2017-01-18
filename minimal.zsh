@@ -151,12 +151,12 @@ function minimal_magic_enter {
 # Apply Switches
 if [ "$MINIMAL_PROMPT" = "yes" ]; then
     # prompt redraw on vimode change
-    function zle-line-init zle-keymap-select {
+    function reset_prompt {
         zle reset-prompt
     }
 
-    zle -N zle-line-init
-    zle -N zle-keymap-select
+    zle -N zle-line-init reset_prompt
+    zle -N zle-keymap-select reset_prompt
 
     PROMPT='$(minimal_env)$(minimal_lprompt) '
     PS2='$(minimal_ps2) '
@@ -164,6 +164,7 @@ if [ "$MINIMAL_PROMPT" = "yes" ]; then
 fi
 
 if [ "$MINIMAL_MAGIC_ENTER" = "yes" ]; then
-    zle -N minimal_magic_enter
-    bindkey "^M" minimal_magic_enter
+    zle -N minimal-magic-enter minimal_magic_enter
+    bindkey -M main  "^M" minimal-magic-enter
+    bindkey -M vicmd "^M" minimal-magic-enter
 fi
