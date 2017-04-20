@@ -109,10 +109,10 @@ function minimal_infoline {
         local user_host_pwd="$_grey%n$w@$_grey%m$w:$_grey%~$w"
         user_host_pwd="${${(%)user_host_pwd}//\//$w/$_grey}"
 
-        local v_files="$(ls -1 | wc -l)"
-        local h_files="$(ls -1A | wc -l)"
+        local v_files="$(ls -1 | sed -n '$=')"
+        local h_files="$(ls -1A | sed -n '$=')"
 
-        local job_n="$(jobs | wc -l)"
+        local job_n="$(jobs | sed -n '$=')"
 
         local iline="[$user_host_pwd] [$_grey$v_files$w ($_grey$h_files$w)]"
         [ "$job_n" -gt 0 ] && iline="$iline [$_grey$job_n$w&]"
@@ -126,7 +126,7 @@ function minimal_infoline {
 
 function minimal_wrap_output {
     local output="$1"
-    local output_len="$(echo "$output" | wc -l)"
+    local output_len="$(echo "$output" | sed -n '$=')"
     if [ -n "$output" ]; then
         if [ "$output_len" -gt "$((LINES - 2))" -a -n "$PAGER" ]; then
             printf "$output\n" | "$PAGER" -R
