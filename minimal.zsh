@@ -114,7 +114,7 @@ function minimal_infoline {
 
         local job_n="$(jobs | sed -n '$=')"
 
-        local iline="[$user_host_pwd] [$_grey$v_files$w ($_grey$h_files$w)]"
+        local iline="[$user_host_pwd] [$_grey${v_files:-0}$w ($_grey${h_files:-0}$w)]"
         [ "$job_n" -gt 0 ] && iline="$iline [$_grey$job_n$w&]"
 
         if [ "$last_err" != "0" ]; then
