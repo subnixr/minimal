@@ -21,9 +21,10 @@ function _isfn {
 if ! _isfn minimal_magic_output; then
     function minimal_magic_output {
         if [ "$(uname)" = "Darwin" ] && ! ls --version &> /dev/null; then
-            ls -C -G
+            # reserve 4 chars for the "  | "
+            COLUMNS=$((COLUMNS - 4)) CLICOLOR_FORCE=1 ls -C -G
         else
-            ls -C --color="always" -w $COLUMNS
+            ls -C --color="always" -w $((COLUMNS - 4))
         fi
 
         git -c color.status=always status -sb 2> /dev/null
