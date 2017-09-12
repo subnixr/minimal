@@ -107,7 +107,7 @@ function minimal_infoline {
         local rn="\e[0;31m"
         local rb="\e[1;31m"
 
-        local user_host_pwd="$_grey%n$w@$_grey%m$w:$_grey%~$w"
+        local user_host_pwd="$_grey%n$w@$_grey%m$w:$_grey$(dirs)$w"
         user_host_pwd="${${(%)user_host_pwd}//\//$w/$_grey}"
 
         local v_files="$(ls -1 | sed -n '$=')"
