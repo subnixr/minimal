@@ -21,6 +21,12 @@ function _isfn {
 if ! _isfn minimal_magic_output; then
     function minimal_magic_output {
         local margin="${#MINIMAL_MAGIC_ENTER_MARGIN}"
+
+        if [ "$(dirs -p | wc -l)" -gt 1 ]; then
+            local stack="$(dirs)"
+            echo "[${_grey}dirs\e[0m - ${_grey}${stack//\//\e[0m/$_grey}\e[0m]"
+        fi
+
         if [ "$(uname)" = "Darwin" ] && ! ls --version &> /dev/null; then
             COLUMNS=$((COLUMNS - margin)) CLICOLOR_FORCE=1 ls -C -G
         else
@@ -107,7 +113,7 @@ function minimal_infoline {
         local rn="\e[0;31m"
         local rb="\e[1;31m"
 
-        local user_host_pwd="$_grey%n$w@$_grey%m$w:$_grey$(dirs)$w"
+        local user_host_pwd="$_grey%n$w@$_grey%m$w:$_grey%~$w"
         user_host_pwd="${${(%)user_host_pwd}//\//$w/$_grey}"
 
         local v_files="$(ls -1 | sed -n '$=')"
