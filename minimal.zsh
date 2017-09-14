@@ -14,26 +14,13 @@ MINIMAL_MAGIC_ENTER_MARGIN="${MINIMAL_MAGIC_ENTER_MARGIN:-  | }"
 
 # check if function exists
 function _isfn {
-    type -w $1 | grep -wq function
+    type -w "$1" | grep -wq function
 }
 
 # Extensions
 if ! _isfn minimal_magic_output; then
     function minimal_magic_output {
-        local margin="${#MINIMAL_MAGIC_ENTER_MARGIN}"
-
-        if [ "$(dirs -p | wc -l)" -gt 1 ]; then
-            local stack="$(dirs)"
-            echo "[${_grey}dirs\e[0m - ${_grey}${stack//\//\e[0m/$_grey}\e[0m]"
-        fi
-
-        if [ "$(uname)" = "Darwin" ] && ! ls --version &> /dev/null; then
-            COLUMNS=$((COLUMNS - margin)) CLICOLOR_FORCE=1 ls -C -G
-        else
-            ls -C --color="always" -w $((COLUMNS - margin))
-        fi
-
-        git -c color.status=always status -sb 2> /dev/null
+        minimal_magic_output_base
     }
 fi
 
@@ -129,6 +116,23 @@ function minimal_infoline {
         fi
 
         echo "$iline"
+}
+
+function minimal_magic_output_base {
+    local margin="${#MINIMAL_MAGIC_ENTER_MARGIN}"
+
+    if [ "$(dirs -p | wc -l)" -gt 1 ]; then
+        local stack="$(dirs)"
+        echo "[${_grey}dirs\e[0m - ${_grey}${stack//\//\e[0m/$_grey}\e[0m]"
+    fi
+
+    if [ "$(uname)" = "Darwin" ] && ! ls --version &> /dev/null; then
+        COLUMNS=$((COLUMNS - margin)) CLICOLOR_FORCE=1 ls -C -G
+    else
+        ls -C --color="always" -w $((COLUMNS - margin))
+    fi
+
+    git -c color.status=always status -sb 2> /dev/null
 }
 
 function minimal_wrap_output {

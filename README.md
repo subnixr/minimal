@@ -120,6 +120,18 @@ minimal_magic_output() {
 source /path/to/minimal.zsh
 ```
 
+If you want to just extend `minimal_magic_output`'s output, you can invoke 
+`minimal_magic_output_base`:
+
+```
+minimal_magic_output() {
+  figlet -f slant "COOLEST KID EVER!!"
+  minimal_magic_output_base
+}
+source /path/to/minimal.zsh
+```
+
+
 # FAQ
 
 ## I HATE UTF-8!
