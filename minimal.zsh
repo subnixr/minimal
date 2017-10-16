@@ -2,6 +2,7 @@
 MINIMAL_PROMPT="${MINIMAL_PROMPT:-yes}"
 MINIMAL_RPROMPT="${MINIMAL_RPROMPT:-yes}"
 MINIMAL_MAGIC_ENTER="${MINIMAL_MAGIC_ENTER:-yes}"
+MINIMAL_SHOW_SSH_HOSTNAME="${MINIMAL_SHOW_SSH_HOSTNAME:-yes}"
 
 # Parameters
 MINIMAL_OK_COLOR="${MINIMAL_OK_COLOR:-2}"
@@ -48,6 +49,14 @@ if ! _isfn minimal_env; then
     }
 fi
 
+if ! _isfn minimal_hostname; then
+    function minimal_hostname {
+        if [[ "${MINIMAL_SHOW_SSH_HOSTNAME}" == "yes" ]] && [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
+            echo "$(hostname -s):"
+        fi
+    }
+fi
+
 # Setup
 autoload -U colors && colors
 setopt prompt_subst
@@ -62,7 +71,9 @@ function minimal_lprompt {
     local kmstatus="$MINIMAL_INSERT_CHAR"
     [ "$KEYMAP" = 'vicmd' ] && kmstatus="$MINIMAL_NORMAL_CHAR"
 
-    echo -n "$user_status%{\e[0m%} $kmstatus"
+    local ssh_hostname="$(minimal_hostname)"
+
+    echo -n "${ssh_hostname}$user_status%{\e[0m%} $kmstatus"
 }
 
 function minimal_ps2 {
