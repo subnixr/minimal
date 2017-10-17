@@ -51,7 +51,7 @@ fi
 
 if ! _isfn minimal_hostname; then
     function minimal_hostname {
-        if [[ "${MINIMAL_SHOW_SSH_HOSTNAME}" == "yes" ]] && [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]; then
+        if [[ "${MINIMAL_SHOW_SSH_HOSTNAME}" == "yes" ]] && ([[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]); then
             echo "$(hostname -s):"
         fi
     }
