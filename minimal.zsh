@@ -2,7 +2,7 @@
 MINIMAL_PROMPT="${MINIMAL_PROMPT:-yes}"
 MINIMAL_RPROMPT="${MINIMAL_RPROMPT:-yes}"
 MINIMAL_MAGIC_ENTER="${MINIMAL_MAGIC_ENTER:-yes}"
-MINIMAL_SHOW_SSH_HOSTNAME="${MINIMAL_SHOW_SSH_HOSTNAME:-yes}"
+MINIMAL_SSH_HOSTNAME="${MINIMAL_SSH_HOSTNAME:-yes}"
 
 # Parameters
 MINIMAL_OK_COLOR="${MINIMAL_OK_COLOR:-2}"
@@ -49,10 +49,10 @@ if ! _isfn minimal_env; then
     }
 fi
 
-if ! _isfn minimal_hostname; then
-    function minimal_hostname {
-        if [[ "${MINIMAL_SHOW_SSH_HOSTNAME}" == "yes" ]] && ([[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]); then
-            echo "$(hostname -s):"
+if ! _isfn minimal_ssh_hostname; then
+    function minimal_ssh_hostname {
+        if [[ "${MINIMAL_SSH_HOSTNAME}" == "yes" ]] && ([[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_TTY" ]]); then
+            echo "$(hostname -s) "
         fi
     }
 fi
@@ -71,9 +71,7 @@ function minimal_lprompt {
     local kmstatus="$MINIMAL_INSERT_CHAR"
     [ "$KEYMAP" = 'vicmd' ] && kmstatus="$MINIMAL_NORMAL_CHAR"
 
-    local ssh_hostname="$(minimal_hostname)"
-
-    echo -n "${ssh_hostname}$user_status%{\e[0m%} $kmstatus"
+    echo -n "$user_status%{\e[0m%} $kmstatus"
 }
 
 function minimal_ps2 {
@@ -180,7 +178,7 @@ if [ "$MINIMAL_PROMPT" = "yes" ]; then
     zle -N zle-line-init reset_prompt
     zle -N zle-keymap-select reset_prompt
 
-    PROMPT='$(minimal_env)$(minimal_lprompt) '
+    PROMPT='$(minimal_env)$(minimal_ssh_hostname)$(minimal_lprompt) '
     PS2='$(minimal_ps2) '
     [ "$MINIMAL_RPROMPT" = "yes" ] && RPROMPT='$(minimal_path)$(minimal_vcs)'
 fi
