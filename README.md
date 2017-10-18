@@ -21,11 +21,12 @@ Otherwise, you can always clone the repo and source `minimal.zsh`.
 # Description
 A prompt with all features:
 ```
-minimal_env λ ›                                     Workspace/sample minimal_vcs
+minimal_env minimal_ssh_hostname λ ›                Workspace/sample minimal_vcs
 ```
 On the left:
 
 - `minimal_env` output (see *functions* section)
+- `minimal_ssh_hostname` output (see *functions* section)
 - `λ` is shown if you are a normal user. When root, a classic `#` will be shown
 instead.
 - `λ` will be `$MINIMAL_OK_COLOR` if the last command exited successfully, 
@@ -66,6 +67,7 @@ These variables are read when sourcing.
 - `MINIMAL_PROMPT`: left prompt (default: active).
 - `MINIMAL_RPROMPT`: right prompt (default: active, doesn't apply if 
 `MINIMAL_PROMPT` isn't enabled).
+- `MINIMAL_SSH_HOSTNAME`: show hostname when connected through ssh (default: active).
 - `MINIMAL_MAGIC_ENTER`: magic enter (default: active).
 
 To disable a feature, just set it to something other than `yes` before sourcing.
@@ -100,6 +102,10 @@ Displays python's virtualenv name if activated.
 `minimal_vcs`:
 
 Displays current branch name, red if dirty, `$MINIMAL_OK_COLOR` if clean.
+
+`minimal_ssh_hostname`:
+
+Displays hostname when connected through ssh.
 
 `minimal_magic_output`:
 
