@@ -227,3 +227,7 @@ source minimal.zsh
 ```
 
 Result: `λ                        `
+
+# Transition from 0.1.0
+
+Check this [gist](https://gist.github.com/subnixr/ea5a5180ab2c193e6ca1238b4dbbc8bd)
