@@ -2,7 +2,7 @@
 A minimal and extensible zsh theme.
 
 # Screencast
-[![screencast](https://asciinema.org/a/6awagm3y3ylut6vo6fauu3j4c.png)](https://asciinema.org/a/6awagm3y3ylut6vo6fauu3j4c)
+[![asciicast](https://asciinema.org/a/RZthpXkg9b7KdKRGjySsC83wx.png)](https://asciinema.org/a/RZthpXkg9b7KdKRGjySsC83wx)
 
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
