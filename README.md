@@ -1,8 +1,7 @@
 # MINIMAL
-A minimal zsh theme.
+A minimal and extensible zsh theme.
 
 # Screencast
-
 [![screencast](https://asciinema.org/a/6awagm3y3ylut6vo6fauu3j4c.png)](https://asciinema.org/a/6awagm3y3ylut6vo6fauu3j4c)
 
 # Installation
@@ -18,175 +17,213 @@ antigen theme subnixr/minimal
 
 Otherwise, you can always clone the repo and source `minimal.zsh`.
 
-# Description
-A prompt with all features:
+# Customization and extension
+## Architecture
+Minimal is mostly a collection of *components* (shell functions) on top of a thin layer to ease customization.
+
+There are 3 areas where a component can be rendered:
+- left prompt
+- right prompt
+- infoline (shown when there is no command and user presses `Enter`)
+
+A component should work in any of the three areas (left, right, info)
+
+## Override default settings
+Different components can use these (global) settings:
+
+- `MNML_OK_COLOR`: Color for successful things (default: `2`)
+- `MNML_ERR_COLOR`: Color for failures (default: `1`)
+- `MNML_USER_CHAR`: Character used for unprivileged users (default: `λ`)
+- `MNML_INSERT_CHAR`: Character used for vi insert mode (default: `›`)
+- `MNML_NORMAL_CHAR`: Character used for vi normal mode (default: `·`)
+
+Three global arrays handle the definition and rendering position of the components:
+
 ```
-minimal_env minimal_ssh_hostname λ ›                Workspace/sample minimal_vcs
-```
-On the left:
+# Components on the left prompt
+MNML_PROMPT=(mnml_ssh mnml_pyenv mnml_status mnml_keymap)
 
-- `minimal_env` output (see *functions* section)
-- `minimal_ssh_hostname` output (see *functions* section)
-- `λ` is shown if you are a normal user. When root, a classic `#` will be shown
-instead.
-- `λ` will be `$MINIMAL_OK_COLOR` if the last command exited successfully, 
-otherwise will be red.
-- `λ` will be underlined if you have jobs in background.
-- `›` will be show if you are in insert (default) mode. If using vimode, `·` 
-is shown when in normal mode.
+# Components on the right prompt
+MNML_RPROMPT=('mnml_cwd 2 0' mnml_git)
 
-On the right:
-
-- The last `$MINIMAL_PWD_LEN` segments of `pwd` are shown. If a segment is 
-longer than `$MINIMAL_PWD_CHAR_LEN` chars, it will be elided. If you are near 
-the root (eg: `/usr/bin`) the first slash will be shown.
-- `minimal_vcs` output (see *functions* section)
-
-# Magic Enter
-You may miss some info from your prompt: magic enter to the rescue!
-```
-λ › [subnixr@lambda-arch:~] [12 (90)] [1&] [1]                                 ~
-  | Desktop    Downloads  GBA   Music  Pictures  Videos
-  | Documents  Dropbox    MAME  Phone  Public    Workspace
-```
-If your buffer is empty, pressing enter will print some useful informations:
-
-- Username, hostname and full `pwd`.
-- Number of visible files, number of total files.
-- Number of background jobs (if any).
-- Exit code of last command (if exited with non-zero)
-- `minimal_magic_output` output (see *functions* section)
-
-# Configuration
-Declarations must be done **before** sourcing `minimal.zsh`, except for 
-*parameters*.
-
-## Features
-These variables are read when sourcing.
-
-- `MINIMAL_PROMPT`: left prompt (default: active).
-- `MINIMAL_RPROMPT`: right prompt (default: active, doesn't apply if 
-`MINIMAL_PROMPT` isn't enabled).
-- `MINIMAL_SSH_HOSTNAME`: show hostname when connected through ssh (default: active).
-- `MINIMAL_MAGIC_ENTER`: magic enter (default: active).
-
-To disable a feature, just set it to something other than `yes` before sourcing.
-
-Example:
-```
-MINIMAL_MAGIC_ENTER="I Don't want this"
-source /path/to/minimal.zsh
+# Components shown on info line
+MNML_INFOLN=(mnml_err mnml_jobs mnml_uhp mnml_files)
 ```
 
-## Parameters
-Changes to these variables take immediate effect.
+An additional array is used to configure magic enter's behavior:
 
-- `MINIMAL_USER_CHAR`: normal user character (default: `λ`).
-- `MINIMAL_INSERT_CHAR`: insert mode character (default: `›`).
-- `MINIMAL_NORMAL_CHAR`: normal mode character (default: `·`).
-- `MINIMAL_OK_COLOR`: color for successful last command and git clean 
-(default: `2`).
-- `MINIMAL_PWD_LEN`: number of working directory segments shown (default: `2`).
-- `MINIMAL_PWD_CHAR_LEN`: maximum length of pwd's segments before it is elided
-(default: `10`, minimum: `4`).
-- `MINIMAL_MAGIC_ENTER_MARGIN`: a string printed before each line of 
-`minimal_magic_output` only if is *not* wrapped into `$PAGER` (default: `  | `)
-
-## Functions
-These are used by *minimal* to display useful informations.
-
-`minimal_env`: 
-
-Displays python's virtualenv name if activated.
-
-`minimal_vcs`:
-
-Displays current branch name, red if dirty, `$MINIMAL_OK_COLOR` if clean.
-
-`minimal_ssh_hostname`:
-
-Displays hostname when connected through ssh.
-
-`minimal_magic_output`:
-
-Displays colored `ls` output followed by a short, colored `git status`.
-
-The output of this functions is piped through `$PAGER` if output is longer 
-than `$LINES - 2`. This feature (piping) is not controlled by this function.
-
-To override a function, simply declare it before sourcing. Keep in mind that 
-override is total.
-
-Example:
 ```
-# I want to drop some sick ascii art when hitting enter
-minimal_magic_output() {
-  figlet -f slant "COOLEST KID EVER!!"
+MNML_MAGICENTER=(mnml_me_dirs mnml_me_ls mnml_me_git)
+```
+
+These values can be changed interactively or in any of the init files.
+
+`PROMPT` and `RPROMPT` should be left untouched, as minimal already takes care.
+
+## Available components
+### Status
+
+> `λ`
+
+**Syntax**: `mnml_status`
+
+An indicator displaying the following informations:
+- user privilege: `#` is printed when root, `$MNML_USER_CHAR` otherwise.
+- last command success: indicator's color is set to `$MNML_OK_COLOR` when last command is successful, `$MNML_ERR_COLOR` otherwise.
+- background jobs: indicator is underlined if at least one job is in background.
+
+### Keymap
+
+> `›`
+
+**Syntax**: `mnml_keymap`
+
+An indicator displaying the current keymap. `$MNML_INSERT_CHAR` is printed when in insert or default mode, `$MNML_NORMAL_CHAR` when in normal (vi) mode.
+
+It reacts to keymap changes. It should work even if zsh bind mode is not set to `vi`
+
+### Current Working Directrory
+
+> `~`
+
+**Syntax**: `mnml_cwd N LEN`
+
+Displays the last `N` segments of the current working directory, each one trucated if `LEN` is exceded.
+
+If `N` is not specified, it will take a default value of `2`. If is specified but `N <= 0`, it will be set to `1`.
+
+If `LEN` is not specified or `LEN <= 0` no truncation will be performed on the segments. If `0 < LEN < 4` it will be set to `4`.
+
+When a segment length is greater than `LEN`'s value, the first `LEN / 2 - 1` characters are printed, followed by `..`, followed by the last `LEN / 2 - 1` characters.  
+For example, with `LEN = 8` and `0123456789` as segment, `012..789` is displayed.
+
+### Git branch status
+
+> `master`
+
+**Syntax**: `mnml_git`
+
+Displays the current git's branch, only if inside a git repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, `$MNML_ERR_COLOR` if the branch is dirty.
+
+### User, Hostname & PWD
+
+> `user@host:~`
+
+**Syntax**: `mnml_uhp`
+
+Displays current username, hostname and working directory.
+
+### SSH hostname
+
+> `host`
+
+**Syntax**: `mnml_ssh`
+
+Displays hostname only if current session is through a SSH connection.
+
+### Python virtual environment
+
+> `venv`
+
+**Syntax**: `mnml_pyenv`
+
+Displays the current activated python virtualenv.
+
+### Last command error value
+
+> `1`
+
+**Syntax**: `mnml_err`
+
+Displays the last command exit status only if it is not `0`.
+
+### Background jobs counter
+
+> `2&`
+
+**Syntax**: `mnml_jobs`
+
+Displays the number of background jobs only if there is at least one.
+
+### Files
+
+> `[5 (2)]`
+
+**Syntax**: `mnml_files`
+
+Displays the number of visible files, followed by the number of hidden files if any.
+
+## Magic enter functions
+### Directory stack
+
+**Syntax**: `mnml_me_dirs`
+
+Prints `dirs` output if there is more than `1` directory in the stack.
+
+### Colored `ls`
+
+**Syntax**: `mnml_me_ls`
+
+Prints colored `ls` output.
+
+### Condesed git status
+
+**Syntax**: `mnml_me_git`
+
+Prints a colored and concise `git status`, only if inside a git repo.
+
+
+## Custom components
+
+Adding functionality is as easy as writing a shell function and add it to one of the arrays:
+
+```
+function awesome_component {
+  echo -n "AWESOME"
 }
-source /path/to/minimal.zsh
-```
 
-If you want to just extend `minimal_magic_output`'s output, you can invoke 
-`minimal_magic_output_base`:
-
-```
-minimal_magic_output() {
-  figlet -f slant "COOLEST KID EVER!!"
-  minimal_magic_output_base
+function awesome_magicenter {
+  figlet -f slant "COOL"
 }
-source /path/to/minimal.zsh
+
+source minimal.zsh
+
+MNML_PROMPT=(awesome_component $MNML_PROMPT)
+MNML_MAGICENTER+=awesome_magicenter
 ```
 
+Due to minimal's architecture, if you need the value of the last command exit status (`$?`), `$MNML_LAST_ERR` must be used. `$?` can  still be used to check for errors inside the component.
 
-# FAQ
+# Congiguration examples:
+## no UTF-8
 
-## I HATE UTF-8!
-No problem:
 ```
-MINIMAL_USER_CHAR="$"
-MINIMAL_INSERT_CHAR=">"
-MINIMAL_NORMAL_CHAR="-"
-source /path/to/minimal.zsh
+MNML_USER_CHAR='$'
+MNML_NOMRAL_CHAR='-'
+MNML_INSERT_CHAR='>'
+source minimal.zsh
 ```
 
-## I don't like that magic enter output is wrapped into `$PAGER`
-You have two choices:
+Result (right omitted): `$ >`
 
-1. `unset $PAGER` (I don't know how much is *encouraged* this practice).
-2. Fork and roll your own, with blackjack and hookers.
+## classic bash's prompt
 
-I personally find that is useless to have a long output if I can't scroll it.
-Sure, terminal emulators can scroll, but what happens when you can't use your 
-favorite one and you're stuck in a tty? `$PAGER`, that's the answer.
+```
+MNML_PROMPT=(mnml_uhp mnml_status mnml_keymap)
+MNML_RPROMPT=()
+source minimal.zsh
+```
 
-## How do I change that info bar when using magic enter?
-For now, you can't. It's a feature of the theme.
+Result: `user@host:~ λ ›          `
 
-## Why `MINIMAL_OK_COLOR` but red is hardcoded?
-By desing, this theme has only one accent color (`MINIMAL_OK_COLOR`).
-Red is just a simple way to attract attention to something that needs it (error 
-code, branch dirty, etc.)
+## good old days
 
-## Do I need to set vi keybinding to use this theme?
-Absolutely no, and you will always see `$MINIMAL_INSERT_CHAR`.
+```
+MNML_PROMPT=(mnml_status)
+MNML_RPROMPT=()
+MNML_INFOLN=()
+MNML_MAGICENTER=()
+source minimal.zsh
+```
 
-## I don't like feature X
-Change theme or see Bender's quote above.
-
-## Can you please add/change feature X?
-If you open an issue, I'll take it in consideration, but more often than not 
-you can achieve the same result with overrides.
-
-If you think your override is a better default than the current one, don't be 
-shy, but provide a clear and useful explanation about why it's better.
-
-Trivial changes (ex: "default normal user char to `$`") are not taken in 
-consideration.
-
-Also keep in mind that this theme wants to be fast and stays out the way of the 
-user. For example, checking the weather in the magic enter can be slow and 
-depends on connectivity; It will never be a default (you have overrides for 
-this kind of things).
-
-## Seriously, *magic enter*?
-I couldn't find a better name for it. I you have it, please tell me.
+Result: `λ                        `
