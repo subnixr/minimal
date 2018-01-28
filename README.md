@@ -7,7 +7,7 @@ A minimal and extensible zsh theme.
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
 ```
-zgen load subnixr/minimal
+zgen bundle subnixr/minimal
 ```
 
 [Antigen](https://github.com/zsh-users/antigen):
