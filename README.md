@@ -7,12 +7,12 @@ A minimal and extensible zsh theme.
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
 ```
-zgen bundle subnixr/minimal
+zgen load subnixr/minimal
 ```
 
 [Antigen](https://github.com/zsh-users/antigen):
 ```
-antigen theme subnixr/minimal
+antigen bundle subnixr/minimal
 ```
 
 Otherwise, you can always clone the repo and source `minimal.zsh`.
