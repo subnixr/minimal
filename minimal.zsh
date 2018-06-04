@@ -163,7 +163,8 @@ function mnml_me_git {
 # Wrappers & utils
 # join outpus of components
 function _mnml_wrap {
-    local arr=()
+    local -a arr
+    arr=()
     local cmd_out=""
     local cmd
     for cmd in ${(P)1}; do
@@ -183,7 +184,8 @@ function _mnml_iline {
 
 # display magic enter
 function _mnml_me {
-    local output=()
+    local -a output
+    output=()
     local cmd_out=""
     local cmd
     for cmd in $MNML_MAGICENTER; do
@@ -222,7 +224,8 @@ function _mnml_buffer-empty {
 function _mnml_bind_widgets() {
     zmodload zsh/zleparameter
 
-    local to_bind=(zle-line-init zle-keymap-select buffer-empty)
+    local -a to_bind
+    to_bind=(zle-line-init zle-keymap-select buffer-empty)
 
     typeset -F SECONDS
     local zle_wprefix=s$SECONDS-r$RANDOM
