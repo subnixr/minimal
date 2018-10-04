@@ -58,7 +58,7 @@ MNML_MAGICENTER=(mnml_me_dirs mnml_me_ls mnml_me_git)
 
 These values can be changed interactively or in any of the init files.
 
-`PROMPT` and `RPROMPT` should be left untouched, as minimal already takes care.
+`PROMPT` and `RPROMPT` should be left untouched, as minimal already takes care of them.
 
 ## Available components
 ### Status
@@ -67,9 +67,9 @@ These values can be changed interactively or in any of the init files.
 
 **Syntax**: `mnml_status`
 
-An indicator displaying the following informations:
+An indicator displaying the following information:
 - user privilege: `#` is printed when root, `$MNML_USER_CHAR` otherwise.
-- last command success: indicator's color is set to `$MNML_OK_COLOR` when last command is successful, `$MNML_ERR_COLOR` otherwise.
+- last command success: indicator's color is set to `$MNML_OK_COLOR` when the last command was successful, `$MNML_ERR_COLOR` otherwise.
 - background jobs: indicator is underlined if at least one job is in background.
 
 ### Keymap
@@ -103,7 +103,7 @@ For example, with `LEN = 8` and `0123456789` as segment, `012..789` is displayed
 
 **Syntax**: `mnml_git`
 
-Displays the current git's branch, only if inside a git repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, `$MNML_ERR_COLOR` if the branch is dirty.
+Displays the current git's branch, when inside a git repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, `$MNML_ERR_COLOR` if the branch is dirty.
 
 ### User, Hostname & PWD
 
@@ -111,7 +111,7 @@ Displays the current git's branch, only if inside a git repo. Color is set to `$
 
 **Syntax**: `mnml_uhp`
 
-Displays current username, hostname and working directory.
+Displays the current username, hostname and working directory.
 
 ### SSH hostname
 
@@ -119,7 +119,7 @@ Displays current username, hostname and working directory.
 
 **Syntax**: `mnml_ssh`
 
-Displays hostname only if current session is through a SSH connection.
+Displays the hostname only if current session is through a SSH connection.
 
 ### Python virtual environment
 
@@ -166,16 +166,16 @@ Prints `dirs` output if there is more than `1` directory in the stack.
 
 Prints colored `ls` output.
 
-### Condesed git status
+### Condensed git status
 
 **Syntax**: `mnml_me_git`
 
-Prints a colored and concise `git status`, only if inside a git repo.
+Prints a colored and concise `git status`, only when inside a git repo.
 
 
 ## Custom components
 
-Adding functionality is as easy as writing a shell function and add it to one of the arrays:
+Adding functionality is as easy as writing a shell function and adding it to one of the arrays:
 
 ```
 function awesome_component {
