@@ -113,6 +113,14 @@ Displays the current git's branch, when inside a git repo. Color is set to `$MNM
 
 Displays the current username, hostname and working directory.
 
+### Only PWD
+
+> `~/your/working/directory`
+
+**Syntax**: `mnml_pwd`
+
+Displays the working directory.
+
 ### SSH hostname
 
 > `host`
