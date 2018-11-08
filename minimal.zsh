@@ -88,6 +88,15 @@ function mnml_uhp {
     echo -n "$_g%n$_w@$_g%m$_w:$_g${cwd//\//$_w/$_g}$_w"
 }
 
+function mnml_pwd {
+    local _w="%{\e[0m%}"
+    local _g="%{\e[38;5;244m%}"
+    local cwd="%~"
+    cwd="${(%)cwd}"
+
+    echo -n "$_g${cwd//\//$_w/$_g}$_w"
+}
+
 function mnml_ssh {
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
         echo -n "$(hostname -s)"
