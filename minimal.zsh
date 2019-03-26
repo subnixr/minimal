@@ -7,7 +7,7 @@ MNML_INSERT_CHAR="${MNML_INSERT_CHAR:-›}"
 MNML_NORMAL_CHAR="${MNML_NORMAL_CHAR:-·}"
 
 [ "${+MNML_PROMPT}" -eq 0 ] && MNML_PROMPT=(mnml_ssh mnml_pyenv mnml_status mnml_keymap)
-[ "${+MNML_RPROMPT}" -eq 0 ] && MNML_RPROMPT=('mnml_cwd 2 0' mnml_git)
+[ "${+MNML_RPROMPT}" -eq 0 ] && MNML_RPROMPT=('mnml_cwd 2 0' mnml_git mnml_hg)
 [ "${+MNML_INFOLN}" -eq 0 ] && MNML_INFOLN=(mnml_err mnml_jobs mnml_uhp mnml_files)
 
 [ "${+MNML_MAGICENTER}" -eq 0 ] && MNML_MAGICENTER=(mnml_me_dirs mnml_me_ls mnml_me_git)
@@ -73,6 +73,17 @@ function mnml_git {
 
     if [ -n "$bname" ]; then
         if [ -n "$(git status --porcelain 2> /dev/null)" ]; then
+            statc="%{\e[0;3${MNML_ERR_COLOR}m%}"
+        fi
+        echo -n "$statc$bname%{\e[0m%}"
+    fi
+}
+
+function mnml_hg {
+    local statc="%{\e[0;3${MNML_OK_COLOR}m%}" # assume clean
+    local bname="$(hg branch 2> /dev/null)"
+    if [ -n "$bname" ]; then
+        if [ -n "$(hg status 2> /dev/null)" ]; then
             statc="%{\e[0;3${MNML_ERR_COLOR}m%}"
         fi
         echo -n "$statc$bname%{\e[0m%}"
