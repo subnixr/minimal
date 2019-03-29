@@ -105,6 +105,16 @@ For example, with `LEN = 8` and `0123456789` as segment, `012..789` is displayed
 
 Displays the current git's branch, when inside a git repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, `$MNML_ERR_COLOR` if the branch is dirty.
 
+### Mercurial branch status
+
+> `default`
+
+**Syntax**: `mnml_hg`
+
+Displays the current mercurial's branch, when inside a mercurial repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, currently `$MNML_ERR_COLOR` if the branch is dirty is not supported.
+
+This component is disabled by default on the `MNML_RPROMPT` but if you want to enable it, just override the default config, for example, with `MNML_RPROMPT=('mnml_cwd 2 0' mnml_git mnml_hg)`.
+
 ### User, Hostname & PWD
 
 > `user@host:~`
