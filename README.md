@@ -111,9 +111,11 @@ Displays the current git's branch, when inside a git repo. Color is set to `$MNM
 
 **Syntax**: `mnml_hg`
 
-Displays the current mercurial's branch, when inside a mercurial repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, currently `$MNML_ERR_COLOR` if the branch is dirty is not supported.
+Displays the current mercurial's branch, when inside a mercurial repo. Color is set to `$MNML_OK_COLOR` if the branch is clean, and `$MNML_ERR_COLOR` if the branch is dirty.
 
 This component is disabled by default on the `MNML_RPROMPT` but if you want to enable it, just override the default config, for example, with `MNML_RPROMPT=('mnml_cwd 2 0' mnml_git mnml_hg)`.
+
+If you feel that this component is a little bit slow, you can use the `mnml_hg_no_color` helper component, which doesn't launch a new Python interpreter, so this means no color support if the branch is dirty, this component just show the current branch name.
 
 ### User, Hostname & PWD
 
