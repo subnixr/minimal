@@ -79,6 +79,42 @@ function mnml_git {
     fi
 }
 
+function mnml_hg {
+    local statc="%{\e[0;3${MNML_OK_COLOR}m%}" # assume clean
+    local bname="$(hg branch 2> /dev/null)"
+    if [ -n "$bname" ]; then
+        if [ -n "$(hg status 2> /dev/null)" ]; then
+            statc="%{\e[0;3${MNML_ERR_COLOR}m%}"
+        fi
+        echo -n "$statc$bname%{\e[0m%}"
+    fi
+}
+
+function mnml_hg_no_color {
+    # Assume branch name is clean
+    local statc="%{\e[0;3${MNML_OK_COLOR}m%}"
+    local bname=""
+    # Defines path as current directory
+    local current_dir=$PWD
+    # While current path is not root path
+    while [[ $current_dir != '/' ]]
+    do
+        if [[ -d "${current_dir}/.hg" ]]
+        then
+            if [[ -f "$current_dir/.hg/branch" ]]
+            then
+                bname=$(<"$current_dir/.hg/branch")
+            else
+                bname="default"
+            fi
+            echo -n "$statc$bname%{\e[0m%}"
+            return;
+        fi
+        # Defines path as parent directory and keeps looking for :)
+        current_dir="${current_dir:h}"
+   done
+}
+
 function mnml_uhp {
     local _w="%{\e[0m%}"
     local _g="%{\e[38;5;244m%}"
