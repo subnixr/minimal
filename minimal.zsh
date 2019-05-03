@@ -28,13 +28,13 @@ function mnml_status {
         err_ansi="$MNML_ERR_COLOR"
     fi
 
-    echo -n "%{\e[$job_ansi;3${err_ansi}m%}%(!.#.$uchar)%{\e[0m%}"
+    printf '%b' "%{\e[$job_ansi;3${err_ansi}m%}%(!.#.$uchar)%{\e[0m%}"
 }
 
 function mnml_keymap {
     local kmstat="$MNML_INSERT_CHAR"
     [ "$KEYMAP" = 'vicmd' ] && kmstat="$MNML_NORMAL_CHAR"
-    echo -n "$kmstat"
+    printf '%b' "$kmstat"
 }
 
 function mnml_cwd {
@@ -64,7 +64,7 @@ function mnml_cwd {
         fi
     done
 
-    echo -n "$_g${(j:/:)cwd//\//$_w/$_g}$_w"
+    printf '%b' "$_g${(j:/:)cwd//\//$_w/$_g}$_w"
 }
 
 function mnml_git {
@@ -75,7 +75,7 @@ function mnml_git {
         if [ -n "$(git status --porcelain 2> /dev/null)" ]; then
             statc="%{\e[0;3${MNML_ERR_COLOR}m%}"
         fi
-        echo -n "$statc$bname%{\e[0m%}"
+        printf '%b' "$statc$bname%{\e[0m%}"
     fi
 }
 
@@ -86,7 +86,7 @@ function mnml_hg {
         if [ -n "$(hg status 2> /dev/null)" ]; then
             statc="%{\e[0;3${MNML_ERR_COLOR}m%}"
         fi
-        echo -n "$statc$bname%{\e[0m%}"
+        printf '%b' "$statc$bname%{\e[0m%}"
     fi
 }
 
@@ -107,7 +107,7 @@ function mnml_hg_no_color {
             else
                 bname="default"
             fi
-            echo -n "$statc$bname%{\e[0m%}"
+            printf '%b' "$statc$bname%{\e[0m%}"
             return;
         fi
         # Defines path as parent directory and keeps looking for :)
@@ -121,19 +121,19 @@ function mnml_uhp {
     local cwd="%~"
     cwd="${(%)cwd}"
 
-    echo -n "$_g%n$_w@$_g%m$_w:$_g${cwd//\//$_w/$_g}$_w"
+    printf '%b' "$_g%n$_w@$_g%m$_w:$_g${cwd//\//$_w/$_g}$_w"
 }
 
 function mnml_ssh {
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        echo -n "$(hostname -s)"
+        printf '%b' "$(hostname -s)"
     fi
 }
 
 function mnml_pyenv {
     if [ -n "$VIRTUAL_ENV" ]; then
         _venv="$(basename $VIRTUAL_ENV)"
-        echo -n "${_venv%%.*}"
+        printf '%b' "${_venv%%.*}"
     fi
 }
 
@@ -142,7 +142,7 @@ function mnml_err {
     local _err="%{\e[3${MNML_ERR_COLOR}m%}"
 
     if [ "${MNML_LAST_ERR:-0}" != "0" ]; then
-        echo -n "$_err$MNML_LAST_ERR$_w"
+        printf '%b' "$_err$MNML_LAST_ERR$_w"
     fi
 }
 
@@ -152,7 +152,7 @@ function mnml_jobs {
 
     local job_n="$(jobs | sed -n '$=')"
     if [ "$job_n" -gt 0 ]; then
-        echo -n "$_g$job_n$_w&"
+        printf '%b' "$_g$job_n$_w&"
     fi
 }
 
@@ -170,7 +170,7 @@ function mnml_files {
     fi
     output="$output${_w}]"
 
-    echo -n "$output"
+    printf '%b' "$output"
 }
 
 # Magic enter functions
@@ -210,7 +210,7 @@ function _mnml_wrap {
         fi
     done
 
-    echo -n "${(j: :)arr}"
+    printf '%b' "${(j: :)arr}"
 }
 
 # expand string as prompt would do
@@ -230,7 +230,7 @@ function _mnml_me {
             output+="$cmd_out"
         fi
     done
-    echo -n "${(j:\n:)output}" | less -XFR
+    printf '%b' "${(j:\n:)output}" | less -XFR
 }
 
 # capture exit status and reset prompt
