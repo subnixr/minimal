@@ -36,6 +36,7 @@ Different components can use these (global) settings:
 - `MNML_USER_CHAR`: Character used for unprivileged users (default: `λ`)
 - `MNML_INSERT_CHAR`: Character used for vi insert mode (default: `›`)
 - `MNML_NORMAL_CHAR`: Character used for vi normal mode (default: `·`)
+- `MNML_ELLIPSIS_CHAR`: Character used when truncating long words (default: `..`)
 
 Three global arrays handle the definition and rendering position of the components:
 
@@ -94,7 +95,7 @@ If `N` is not specified, it will take a default value of `2`. If is specified bu
 
 If `LEN` is not specified or `LEN <= 0` no truncation will be performed on the segments. If `0 < LEN < 4` it will be set to `4`.
 
-When a segment length is greater than `LEN`'s value, the first `LEN / 2 - 1` characters are printed, followed by `..`, followed by the last `LEN / 2 - 1` characters.  
+When a segment length is greater than `LEN`'s value, the first `LEN / 2 - 1` characters are printed, followed by `$MNML_ELLIPSIS_CHAR`, followed by the last `LEN / 2 - 1` characters.
 For example, with `LEN = 8` and `0123456789` as segment, `012..789` is displayed.
 
 ### Git branch status
