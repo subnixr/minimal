@@ -5,6 +5,7 @@ MNML_ERR_COLOR="${MNML_ERR_COLOR:-1}"
 MNML_USER_CHAR="${MNML_USER_CHAR:-λ}"
 MNML_INSERT_CHAR="${MNML_INSERT_CHAR:-›}"
 MNML_NORMAL_CHAR="${MNML_NORMAL_CHAR:-·}"
+MNML_ELLIPSIS_CHAR="${MNML_ELLIPSIS_CHAR:-..}"
 
 [ "${+MNML_PROMPT}" -eq 0 ] && MNML_PROMPT=(mnml_ssh mnml_pyenv mnml_status mnml_keymap)
 [ "${+MNML_RPROMPT}" -eq 0 ] && MNML_RPROMPT=('mnml_cwd 2 0' mnml_git)
@@ -38,6 +39,7 @@ function mnml_keymap {
 }
 
 function mnml_cwd {
+    local echar="$MNML_ELLIPSIS_CHAR"
     local segments="${1:-2}"
     local seg_len="${2:-0}"
 
@@ -60,7 +62,7 @@ function mnml_cwd {
     for i in {1..${#cwd}}; do
         pi="$cwd[$i]"
         if [ "$seg_len" -gt 0 ] && [ "${#pi}" -gt "$seg_len" ]; then
-            cwd[$i]="${pi:0:$seg_hlen}$_w..$_g${pi: -$seg_hlen}"
+            cwd[$i]="${pi:0:$seg_hlen}$_w$echar$_g${pi: -$seg_hlen}"
         fi
     done
 
