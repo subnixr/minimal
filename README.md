@@ -33,7 +33,7 @@ Different components can use these (global) settings:
 
 - `MNML_OK_COLOR`: Color for successful things (default: `2`)
 - `MNML_ERR_COLOR`: Color for failures (default: `1`)
-- `MNML_BACKGROUND_JOB_MODE`: Mode applied when there are background jobs (default: `4`)
+- `MNML_BGJOB_MODE`: Mode applied when there are background jobs (default: `4`)
 - `MNML_USER_CHAR`: Character used for unprivileged users (default: `λ`)
 - `MNML_INSERT_CHAR`: Character used for vi insert mode (default: `›`)
 - `MNML_NORMAL_CHAR`: Character used for vi normal mode (default: `·`)
@@ -72,7 +72,7 @@ These values can be changed interactively or in any of the init files.
 An indicator displaying the following information:
 - user privilege: `#` is printed when root, `$MNML_USER_CHAR` otherwise.
 - last command success: indicator's color is set to `$MNML_OK_COLOR` when the last command was successful, `$MNML_ERR_COLOR` otherwise.
-- background jobs: `$MNML_BACKGROUND_JOB_MODE` is applied to the indicator if at least one job is in background.
+- background jobs: `$MNML_BGJOB_MODE` is applied to the indicator if at least one job is in background.
 
 ### Keymap
 
