@@ -2,6 +2,8 @@
 MNML_OK_COLOR="${MNML_OK_COLOR:-2}"
 MNML_ERR_COLOR="${MNML_ERR_COLOR:-1}"
 
+MNML_BACKGROUND_JOB_MODE=${MNML_BACKGROUND_JOB_MODE:-4}
+
 MNML_USER_CHAR="${MNML_USER_CHAR:-λ}"
 MNML_INSERT_CHAR="${MNML_INSERT_CHAR:-›}"
 MNML_NORMAL_CHAR="${MNML_NORMAL_CHAR:-·}"
@@ -21,7 +23,7 @@ function mnml_status {
 
     local job_ansi="0"
     if [ -n "$(jobs | sed -n '$=')" ]; then
-        job_ansi="4"
+        job_ansi="$MNML_BACKGROUND_JOB_MODE"
     fi
 
     local err_ansi="$MNML_OK_COLOR"
