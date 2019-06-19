@@ -45,7 +45,7 @@ function mnml_cwd {
     local _g="%{\e[38;5;244m%}"
 
     if [ "$segments" -le 0 ]; then
-        segments=1
+        segments=0
     fi
     if [ "$seg_len" -gt 0 ] && [ "$seg_len" -lt 4 ]; then
         seg_len=4
@@ -86,15 +86,6 @@ function mnml_uhp {
     cwd="${(%)cwd}"
 
     echo -n "$_g%n$_w@$_g%m$_w:$_g${cwd//\//$_w/$_g}$_w"
-}
-
-function mnml_pwd {
-    local _w="%{\e[0m%}"
-    local _g="%{\e[38;5;244m%}"
-    local cwd="%~"
-    cwd="${(%)cwd}"
-
-    echo -n "$_g${cwd//\//$_w/$_g}$_w"
 }
 
 function mnml_ssh {
