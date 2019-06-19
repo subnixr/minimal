@@ -117,7 +117,7 @@ Displays the current username, hostname and working directory.
 
 > `~/your/working/directory`
 
-**Syntax**: `mnml_pwd`
+**Syntax**: `mnml_cwd 0`
 
 Displays the working directory.
 
