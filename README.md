@@ -92,7 +92,7 @@ It reacts to keymap changes. It should work even if zsh bind mode is not set to 
 
 Displays the last `N` segments of the current working directory, each one trucated if `LEN` is exceded.
 
-If `N` is not specified, it will take a default value of `2`. If is specified but `N <= 0`, it will be set to `1`.
+If `N` is `0`, it will display all segments. When `N` is not specified, it will take a default value of `2`. If is specified but `N <= 0`, it will be set to `0`.
 
 If `LEN` is not specified or `LEN <= 0` no truncation will be performed on the segments. If `0 < LEN < 4` it will be set to `4`.
 
@@ -126,14 +126,6 @@ If you feel that this component is a little bit slow, you can use the `mnml_hg_n
 **Syntax**: `mnml_uhp`
 
 Displays the current username, hostname and working directory.
-
-### Only PWD
-
-> `~/your/working/directory`
-
-**Syntax**: `mnml_cwd 0`
-
-Displays the working directory.
 
 ### SSH hostname
 
