@@ -48,7 +48,7 @@ function mnml_cwd {
     local _g="%{\e[38;5;244m%}"
 
     if [ "$segments" -le 0 ]; then
-        segments=1
+        segments=0
     fi
     if [ "$seg_len" -gt 0 ] && [ "$seg_len" -lt 4 ]; then
         seg_len=4

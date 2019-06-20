@@ -127,6 +127,14 @@ If you feel that this component is a little bit slow, you can use the `mnml_hg_n
 
 Displays the current username, hostname and working directory.
 
+### Only PWD
+
+> `~/your/working/directory`
+
+**Syntax**: `mnml_cwd 0`
+
+Displays the working directory.
+
 ### SSH hostname
 
 > `host`
