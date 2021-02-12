@@ -17,7 +17,9 @@ antigen bundle subnixr/minimal
 
 [Oh My Zsh](https://ohmyz.sh/):
 ```sh
-git clone https://github.com/subnixr/minimal.git  ~/.oh-my-zsh/custom/themes/minimal
+git clone https://github.com/subnixr/minimal.git  ${ZSH_CUSTOM}/themes/minimal
+
+ln -s ${ZSH_CUSTOM}/themes/minimal/minimal.zsh ${ZSH_CUSTOM}/themes/minimal.zsh-theme
 # then update `ZSH_THEME` to `minimal` in your .zshrc 
 ```
 
