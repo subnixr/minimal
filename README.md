@@ -6,14 +6,23 @@ A minimal and extensible zsh theme.
 
 # Installation
 [Zgen](https://github.com/tarjoilija/zgen):
-```
+```sh
 zgen load subnixr/minimal
 ```
 
 [Antigen](https://github.com/zsh-users/antigen):
-```
+```sh
 antigen bundle subnixr/minimal
 ```
+
+[Oh My Zsh](https://ohmyz.sh/):
+```sh
+git clone https://github.com/subnixr/minimal.git  ${ZSH_CUSTOM}/themes/minimal
+
+ln -s ${ZSH_CUSTOM}/themes/minimal/minimal.zsh ${ZSH_CUSTOM}/themes/minimal.zsh-theme
+# then update `ZSH_THEME` to `minimal` in your .zshrc 
+```
+
 
 Otherwise, you can always clone the repo and source `minimal.zsh`.
 
