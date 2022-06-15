@@ -10,6 +10,14 @@ A minimal and extensible zsh theme.
 zgen load subnixr/minimal
 ```
 
+[Fig](https://fig.io):
+
+Fig adds apps, shortcuts, and autocomplete to your existing terminal.
+
+Install `minimal` in just one click.
+
+<a href="https://fig.io/plugins/other/minimal" target="_blank"><img src="https://fig.io/badges/install-with-fig.svg" /></a>
+
 [Antigen](https://github.com/zsh-users/antigen):
 ```sh
 antigen bundle subnixr/minimal
