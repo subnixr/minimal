@@ -5,6 +5,16 @@ A minimal and extensible zsh theme.
 [![asciicast](https://asciinema.org/a/RZthpXkg9b7KdKRGjySsC83wx.png)](https://asciinema.org/a/RZthpXkg9b7KdKRGjySsC83wx)
 
 # Installation
+
+Manual:  
+
+Get a copy of `minimal.zsh` and source it, for example:
+
+```sh
+curl -O ~/minimal.zsh https://raw.githubusercontent.com/subnixr/minimal/master/minimal.zsh
+source ~/minimal.zsh
+```
+
 [Zgen](https://github.com/tarjoilija/zgen):
 ```sh
 zgen load subnixr/minimal
@@ -27,10 +37,6 @@ ln -s ${ZSH_CUSTOM}/themes/minimal/minimal.zsh ${ZSH_CUSTOM}/themes/minimal.zsh-
 
 `minimal` is also available on Fig  
 <a href="https://fig.io/plugins/other/minimal" target="_blank"><img src="https://fig.io/badges/install-with-fig.svg" /></a>
-
-Manual:
-
-Otherwise, you can always clone the repo and source `minimal.zsh`.
 
 # Customization and extension
 ## Architecture
